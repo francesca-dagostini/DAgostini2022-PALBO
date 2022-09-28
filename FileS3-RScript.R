@@ -83,7 +83,7 @@ dev.off()
 
 ###LOGISTIC REGRESSION###
 
-#MODERNO
+#MODERN
 data<-read.table("Modern.csv",sep=",",header=TRUE)
 data[, c(3)] <- sapply(data[, c(3)], as.numeric)
 data$Treatment [data$Treatment == "1"] <- 0
@@ -100,7 +100,7 @@ step.model<- stepAIC(full.model, direction = "both",
                      trace = FALSE)
 summary(step.model)
 
-#ARCHEO
+#ARCHAEOLOGICAL
 dataset<-read.csv(file="Archaeological.csv", sep=",")
 dataset[, c(1,3,4)] <- sapply(dataset[, c(1,3,4)], as.numeric)
 X<-dataset[,c(5:14)]
