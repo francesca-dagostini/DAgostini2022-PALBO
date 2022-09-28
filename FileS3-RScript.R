@@ -1,6 +1,8 @@
+#Set working directory and load data
 setwd("/Users/francescadagostini/desktop")
 data<-read.table("Phytoliths2019.csv",sep=",",header=TRUE)
 
+#Load packages
 library(ggplot2)
 library(ggpubr)
 library(ggrepel)
@@ -8,8 +10,8 @@ library(tidyverse)
 library(svglite)
 library(MASS)
 
-###MEAN&SD
-#For the remaining morphotypes change the variable 'TriCONCE' to the variable corresponding to the morphotype, e.g. SaddleCONCE, CrossCONCE...
+###MEAN & SD
+#For the remaining morphotypes change the variable 'TriCONCE' to the variable corresponding to the morphotype (e.g. SaddleCONCE, CrossCONCE...)
 with(data, tapply(data$TriCONCE, list(data$Species, data$Treatment), mean))
 with(data, tapply(data$TriCONCE, list(data$Species, data$Treatment), sd))
 
@@ -17,7 +19,7 @@ with(data, tapply(data$Concentration,list(data$Treatment), mean))
 with(data, tapply(data$Concentration,list(data$Treatment), sd))
 
 ###GLM
-#For the remaining morphotypes change the variable 'TriCONCE' to the variable corresponding to the morphotype, e.g. SaddleCONCE, CrossCONCE...
+#For the remaining morphotypes change the variable 'TriCONCE' to the variable corresponding to the morphotype (e.g. SaddleCONCE, CrossCONCE...)
 glm1<- glm(family= gaussian, data$TriCONCE ~ data$Treatment, data=data)
 summary(glm1)
 
@@ -27,12 +29,12 @@ summary(glm2)
 glm3<- glm(family= gaussian, data$Concentration ~ data$Species+ data$Genotype+ data$TWT+ data$TE +data$TWA+ data$LastTranspiration, data=data)
 summary(glm3)
 
-###ANOVA2WAY###
+###ANOVA 2-WAY
 aov_twu_2way <- aov(data$Concentration ~ data$Species + data$Treatment, data = data)
 TukeyHSD(aov_twu_2way)
 
-###LINEAR REGRESSION### 
-#For Ratio sensitive to fixed run the code by changing the variable "Concentration" to the variable "RatioS/F"
+###LINEAR REGRESSION
+#For ratio sensitive to fixed run the code by changing the variable "Concentration" to the variable "RatioS/F"
 Regre<-ggplot(data = data, aes(x = TWT, y=log(Concentration))) + 
   facet_wrap(~Species, scales="free_x", nrow= 1) +
   labs(title="",
@@ -47,7 +49,7 @@ Regre +theme_bw()+ scale_color_brewer(palette="Paired")+
         text=element_text(size=15), axis.title=element_text(size=13))
 dev.off()
 
-###BOXPLOT SPECIES###
+###BOXPLOT SPECIES
 #For ratio sensitive to fixed run the code by changing the variable "Concentration" to the variable "RatioS/F"
 boxplot1<-ggplot(data, aes(x=Species, y=log(Concentration), fill=Treatment)) + 
   geom_boxplot() +
@@ -81,7 +83,7 @@ boxplot1+theme_bw()+scale_fill_brewer(palette= "BuPu")+
         axis.text.x=element_text(angle = 90, vjust = 0.5, hjust=1))
 dev.off()
 
-###LOGISTIC REGRESSION###
+###LOGISTIC REGRESSION
 
 #MODERN
 data<-read.table("Modern.csv",sep=",",header=TRUE)
@@ -90,12 +92,12 @@ data$Treatment [data$Treatment == "1"] <- 0
 data$Treatment [data$Treatment == "2"] <- 1
 data$Treatment<- as.integer(data$Treatment)
 
-#1
-full.model <- glm(Treatment ~ TriPER + SaddlePER + RondelPER + BulliParalPER + BulliFlabPER+ StomaPER + CrossPER + BiloPER + PolyPER, 
+#1 ADD TITLE
+full.model <- glm(Treatment ~ TriPER + SaddlePER + RondelPER + BulliParalPER + BulliFlabPER + StomaPER + CrossPER + BiloPER + PolyPER, 
                   data = data, family = binomial(link="logit"))
 summary(full.model)
 
-# 2 Stepwise selection
+#2 Stepwise selection
 step.model<- stepAIC(full.model, direction = "both", 
                      trace = FALSE)
 summary(step.model)
