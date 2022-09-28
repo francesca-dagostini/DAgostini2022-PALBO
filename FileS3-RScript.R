@@ -9,7 +9,7 @@ library(svglite)
 library(MASS)
 
 ###MEAN&SD
-#For For the remaining morphotypes change the variable 'TriCONCE' to the variable corresponding to the morphotype, e.g. SaddleCONCE, CrossCONCE...
+#For the remaining morphotypes change the variable 'TriCONCE' to the variable corresponding to the morphotype, e.g. SaddleCONCE, CrossCONCE...
 with(data, tapply(data$TriCONCE, list(data$Species, data$Treatment), mean))
 with(data, tapply(data$TriCONCE, list(data$Species, data$Treatment), sd))
 
@@ -17,7 +17,7 @@ with(data, tapply(data$Concentration,list(data$Treatment), mean))
 with(data, tapply(data$Concentration,list(data$Treatment), sd))
 
 ###GLM
-#For For the remaining morphotypes change the variable 'TriCONCE' to the variable corresponding to the morphotype, e.g. SaddleCONCE, CrossCONCE...
+#For the remaining morphotypes change the variable 'TriCONCE' to the variable corresponding to the morphotype, e.g. SaddleCONCE, CrossCONCE...
 glm1<- glm(family= gaussian, data$TriCONCE ~ data$Treatment, data=data)
 summary(glm1)
 
@@ -48,7 +48,7 @@ Regre +theme_bw()+ scale_color_brewer(palette="Paired")+
 dev.off()
 
 ###BOXPLOT SPECIES###
-#For Ratio sensitive to fixed run the code by changing the variable "Concentration" to the variable "RatioS/F"
+#For ratio sensitive to fixed run the code by changing the variable "Concentration" to the variable "RatioS/F"
 boxplot1<-ggplot(data, aes(x=Species, y=log(Concentration), fill=Treatment)) + 
   geom_boxplot() +
   facet_wrap(~Species, scales="free_x") +
@@ -65,7 +65,7 @@ boxplot1+theme_bw()+scale_fill_brewer(palette= "BuPu")+
 dev.off()
 
 ###BOXPLOT LANDRACES
-#For Ratio sensitive to fixed run the code by changing the variable "Concentration" to the variable "RatioS/F"
+#For ratio sensitive to fixed run the code by changing the variable "Concentration" to the variable "RatioS/F"
 boxplot1<-ggplot(data, aes(x=Genotype, y=log(Concentration), fill=Treatment)) + 
   geom_boxplot() +
   facet_wrap(~Species, scales="free_x") +
@@ -101,7 +101,7 @@ step.model<- stepAIC(full.model, direction = "both",
 summary(step.model)
 
 #ARCHEO
-dataset<-read.csv(file="Archeo.csv", sep=",")
+dataset<-read.csv(file="Archaeological.csv", sep=",")
 dataset[, c(1,3,4)] <- sapply(dataset[, c(1,3,4)], as.numeric)
 X<-dataset[,c(5:14)]
 
