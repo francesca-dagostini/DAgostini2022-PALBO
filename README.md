@@ -1,6 +1,6 @@
 # SUPPLEMENTARY MATERIALS FOR D'AGOSTINI ET AL. 2022
 
-This repository contains the code used to carry out statistical analysis conducted during the stduy and the datasets used. The complete Supplementary Information (including figure S1; files S1, S2, S4), are available on Zenodo.org: 
+This repository contains the code used to carry out statistical analysis conducted during the study and the datasets used. The complete Supplementary Information (including figure S1; files S1, S2, S4), are available on Zenodo.org: 
 
 ## Publication
 Title: Phytoliths as indicator of plant water availability: the case of millets cultivation in the Indus Valley civilization  
